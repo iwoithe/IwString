@@ -7,6 +7,7 @@ int main()
     iw::String str = iw::String();
     str.setData("Hello, World!");
     std::cout << str.data() << std::endl;
+    std::cout << str.cstr() << std::endl;
 
     std::cout << str.length() << std::endl;
 
