@@ -17,8 +17,11 @@ int main()
 
     String helloStr = String("Hello");
     String worldStr = String("World");
-    String resStr = helloStr + worldStr;
+    String resStr = helloStr + ", " + worldStr + "!";
     std::cout << resStr.cstr() << std::endl;
+
+    String res2Str = helloStr << ", " << worldStr << "!";
+    std::cout << res2Str.cstr() << std::endl;
 
     return 0;
 }

@@ -9,40 +9,20 @@ class String
 public:
     String();
     String(const char* str);
-    // String(const String& _other);
+    String(String& str);
+    String(const String& str);
     // ~String();
 
-    String operator+(String& other)
-    {
-        String res;
+    String operator+(const String& other);
+    String operator<<(const String& other);
 
-        // This data length
-        int tDataLen = strlen(this->data());
-        // Other data length
-        int oDataLen = strlen(other.data());
+    String appendString(const String& other);
 
-        char* strData = new char[tDataLen + oDataLen];
+    char& characterAt(int index) const;
 
-        for (int i = 0; i < tDataLen; i++) {
-            strData[i] = m_data[i];
-        }
+    const char* cstr() const;
 
-        for (int i = 0; i < oDataLen; i++) {
-            strData[i + tDataLen] = other.characterAt(i);
-        }
-
-        strData[tDataLen + oDataLen] = '\0';
-
-        res.setData(strData);
-
-        return res;
-    }
-
-    char& characterAt(int index);
-
-    const char* cstr();
-
-    const char* data();
+    const char* data() const;
     void setData(const char* d);
 
     int length();
