@@ -10,6 +10,11 @@ String::String()
     m_data[0] = '\0';
 }
 
+String::String(const char* str)
+{
+    setData(str);
+}
+
 char& String::characterAt(int index)
 {
     return m_data[index];

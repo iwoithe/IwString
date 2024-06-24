@@ -6,7 +6,7 @@ class String
 {
 public:
     String();
-    // String(const char* _str);
+    String(const char* str);
     // String(const String& _other);
     // ~String();
 
