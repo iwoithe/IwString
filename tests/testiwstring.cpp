@@ -24,7 +24,7 @@ int main()
 {
     TestHandler* testHandler = new TestHandler();
 
-    testHandler->addTest("testPlusOperator", testPlusOperator);
+    testHandler->addTest("testPlusOperator", &testPlusOperator);
     testHandler->addTest("testLength", &testLength);
     
     ErrCode err = testHandler->runTests();
