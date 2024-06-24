@@ -2,9 +2,11 @@
 
 #include "../src/iwstring.h"
 
+using namespace iw;
+
 int main()
 {
-    iw::String str = iw::String();
+    String str = String();
     str.setData("Hello, World!");
     std::cout << str.data() << std::endl;
     std::cout << str.cstr() << std::endl;
