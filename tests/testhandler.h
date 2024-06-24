@@ -11,6 +11,7 @@
 
 namespace iw {
 #define ASSERT_TRUE(a, b) if (a == b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+#define ASSERT_FALSE(a, b) if (a != b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
 
 enum ErrCode {
     OK,
