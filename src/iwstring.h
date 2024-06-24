@@ -10,6 +10,8 @@ public:
     // String(const String& _other);
     // ~String();
 
+    char& characterAt(int index);
+
     const char* data();
     void setData(const char* d);
 

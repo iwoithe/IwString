@@ -10,5 +10,7 @@ int main()
 
     std::cout << str.length() << std::endl;
 
+    std::cout << str.characterAt(0) << std::endl;
+
     return 0;
 }
