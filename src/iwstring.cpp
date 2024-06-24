@@ -1,7 +1,5 @@
 #include "iwstring.h"
 
-#include <cstring>
-
 using namespace iw;
 
 String::String()

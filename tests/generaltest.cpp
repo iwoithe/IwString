@@ -15,5 +15,10 @@ int main()
 
     std::cout << str.characterAt(0) << std::endl;
 
+    String helloStr = String("Hello");
+    String worldStr = String("World");
+    String resStr = helloStr + worldStr;
+    std::cout << resStr.cstr() << std::endl;
+
     return 0;
 }
