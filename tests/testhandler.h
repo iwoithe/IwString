@@ -12,6 +12,15 @@
 namespace iw {
 #define ASSERT_TRUE(a, b) if (a == b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
 #define ASSERT_FALSE(a, b) if (a != b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+// Less Than
+#define ASSERT_LT(a, b) if (a < b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+// Less Than Equal To
+#define ASSERT_LTE(a, b) if (a <= b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+// Greater Than
+#define ASSERT_GT(a, b) if (a > b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+// Greater Than Equal To
+#define ASSERT_GTE(a, b) if (a >= b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+
 
 enum ErrCode {
     OK,
