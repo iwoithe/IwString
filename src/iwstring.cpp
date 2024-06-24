@@ -17,12 +17,11 @@ const char* String::data()
 
 void String::setData(const char* d)
 {
-    int i = 0;
     int n = strlen(d);
 
     m_data = new char[n];
 
-    for (i; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         m_data[i] = d[i];
     }
 
