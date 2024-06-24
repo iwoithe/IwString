@@ -11,10 +11,13 @@ public:
     String(const char* str);
     String(String& str);
     String(const String& str);
-    // ~String();
+    ~String();
 
+    String operator=(const char* str);
+    String operator=(const String& other);
     String operator+(const String& other);
     String operator<<(const String& other);
+    bool operator==(const String& other);
 
     String appendString(const String& other);
 

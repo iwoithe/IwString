@@ -23,6 +23,22 @@ String::String(const String& str)
     m_data = const_cast<char*>(str.data());
 }
 
+String::~String() {}
+
+String String::operator=(const char* str)
+{
+    String res;
+    res.setData(str);
+    return res;
+}
+
+String String::operator=(const String& other)
+{
+    String res;
+    res.setData(const_cast<char*>(other.data()));
+    return res;
+}
+
 String String::operator+(const String& other)
 {
     return appendString(other);
@@ -31,6 +47,11 @@ String String::operator+(const String& other)
 String String::operator<<(const String& other)
 {
     return appendString(other);
+}
+
+bool String::operator==(const String& other)
+{
+    return m_data == other.data();
 }
 
 String String::appendString(const String& other)
