@@ -20,6 +20,12 @@ char& String::characterAt(int index)
     return m_data[index];
 }
 
+const char* String::cstr()
+{
+    // A wrapper for String::data()
+    return data();
+}
+
 const char* String::data()
 {
     return m_data;

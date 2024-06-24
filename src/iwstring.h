@@ -12,6 +12,8 @@ public:
 
     char& characterAt(int index);
 
+    const char* cstr();
+
     const char* data();
     void setData(const char* d);
 
