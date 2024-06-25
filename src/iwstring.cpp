@@ -8,6 +8,16 @@ String::String()
     m_data[0] = '\0';
 }
 
+String::String(char c)
+{
+    setData(c);
+}
+
+String::String(char* str)
+{
+    setData(str);
+}
+
 String::String(const char* str)
 {
     setData(str);
@@ -47,6 +57,11 @@ String String::operator+(const String& other)
 String String::operator<<(const String& other)
 {
     return append(other);
+}
+
+char& String::operator[](const int& index)
+{
+    return m_data[index];
 }
 
 bool String::operator==(const String& other)
@@ -116,6 +131,13 @@ const char* String::cstr() const
 const char* String::data() const
 {
     return m_data;
+}
+
+void String::setData(char c)
+{
+    m_data = new char[2];
+    m_data[0] = c;
+    m_data[1] = '\0';
 }
 
 void String::setData(const char* d)

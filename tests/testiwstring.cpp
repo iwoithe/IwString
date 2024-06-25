@@ -3,6 +3,12 @@
 
 using namespace iw;
 
+ErrCode testArrayIndexOperator()
+{
+    String str = "Hello";
+    ASSERT_TRUE(static_cast<String>(str[2]), String("l"));
+}
+
 ErrCode testEqOperatorMismatchStrSameLength()
 {
     String str1 = "String 1";
@@ -40,6 +46,7 @@ int main()
 {
     TestHandler* testHandler = new TestHandler();
 
+    testHandler->addTest("testArrayIndexOperator", &testArrayIndexOperator);
     testHandler->addTest("testEqOperatorMismatchStrSameLength", &testEqOperatorMismatchStrSameLength);
     testHandler->addTest("testLength", &testLength);
     testHandler->addTest("testEqOperator", &testSetValue);
