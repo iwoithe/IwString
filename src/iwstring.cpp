@@ -99,6 +99,11 @@ bool String::operator!=(const String& other)
 
 String String::append(const String& other) const
 {
+    return append(other, true);
+}
+
+String String::append(const String& other, const bool& insertNullTerm) const
+{
     String res;
 
     // This data length
@@ -116,7 +121,7 @@ String String::append(const String& other) const
         strData[i + tDataLen] = other.characterAt(i);
     }
 
-    if (strData[tDataLen + oDataLen - 1] != '\0') {
+    if (insertNullTerm && strData[tDataLen + oDataLen - 1] != '\0') {
         strData[tDataLen + oDataLen] = '\0';
     }
 
@@ -218,6 +223,32 @@ String String::prepend(const String& other) const
     res.setData(strData);
 
     return res;
+}
+
+void String::replace(const String& findStr, const String& replaceStr)
+{
+    int findIndex = find(findStr);
+    
+    while (findIndex != -1) {
+        String remainingStr;
+        
+        int remainingStrLength = length() - (findIndex + findStr.length());
+        for (int i = 0; i < remainingStrLength; i++) {
+            remainingStr += m_data[findIndex + findStr.length() + i];
+        }
+
+        String newStr;
+        for (int i = 0; i < findIndex; i++) {
+            newStr += m_data[i];
+        }
+
+        newStr += replaceStr;
+        newStr += remainingStr;
+
+        setData(newStr.data());
+
+        findIndex = find(findStr);
+    }
 }
 
 std::vector<char> String::toCharVector() const

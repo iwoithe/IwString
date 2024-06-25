@@ -26,6 +26,7 @@ public:
     bool operator!=(const String& other);
 
     String append(const String& other) const;
+    String append(const String& other, const bool& insertNullTerm) const;
 
     char& characterAt(int index) const;
 
@@ -41,6 +42,8 @@ public:
     const int length() const;
 
     String prepend(const String& other) const;
+
+    void replace(const String& findStr, const String& replaceStr);
 
     std::vector<char> toCharVector() const;
     String toLower();

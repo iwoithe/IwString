@@ -61,6 +61,20 @@ ErrCode testPrepend()
     ASSERT_TRUE(str.prepend(", World!"), String(", World!Hello"));
 }
 
+ErrCode testReplace()
+{
+    String str = "Hello World Foo Bar";
+    str.replace("Wor", "Co");
+    ASSERT_TRUE(str, String("Hello Cold Foo Bar"));
+}
+
+ErrCode testReplaceMultiWords()
+{
+    String str = "Hello World Hello World";
+    str.replace("World", "Replaced");
+    ASSERT_TRUE(str, String("Hello Replaced Hello Replaced"));
+}
+
 ErrCode testSetValue()
 {
     String hello = "Hello";
@@ -96,6 +110,8 @@ int main()
     testHandler->addTest("testPlusOperator", &testPlusOperator);
     testHandler->addTest("testPlusEqOperator", &testPlusEqOperator);
     testHandler->addTest("testPrepend", &testPrepend);
+    testHandler->addTest("testReplace", &testReplace);
+    testHandler->addTest("testReplaceMultiWords", &testReplaceMultiWords);
     testHandler->addTest("testToLower", &testToLower);
     testHandler->addTest("testToUpper", &testToUpper);
 
