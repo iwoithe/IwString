@@ -1,4 +1,5 @@
 #include "iwstring.h"
+#include <string.h>
 
 using namespace iw;
 
@@ -158,4 +159,29 @@ void String::setData(const char* d)
 const int String::length() const
 {
     return strlen(m_data);
+}
+
+std::vector<char> String::toCharVector() const
+{
+    std::vector<char> charVector;
+
+    for (int i = 0; i < strlen(m_data); i++) {
+        charVector.push_back(m_data[i]);
+    }
+
+    return charVector;
+}
+
+String String::toLower()
+{
+    String res;
+    res.setData(strlwr(m_data));
+    return res;
+}
+
+String String::toUpper()
+{
+    String res;
+    res.setData(strupr(m_data));
+    return res;
 }

@@ -2,6 +2,7 @@
 #define IWSTRING_H
 
 #include <cstring>
+#include <vector>
 
 namespace iw {
 class String
@@ -34,6 +35,10 @@ public:
     void setData(const char* d);
 
     const int length() const;
+
+    std::vector<char> toCharVector() const;
+    String toLower();
+    String toUpper();
 
 private:
     char* m_data;

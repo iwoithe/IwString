@@ -42,6 +42,20 @@ ErrCode testSetValue()
     ASSERT_TRUE(hello, res)
 }
 
+ErrCode testToLower()
+{
+    String str = "Hello, World!";
+    String expectedResult = "hello, world!";
+    ASSERT_TRUE(str.toLower(), expectedResult);
+}
+
+ErrCode testToUpper()
+{
+    String str = "Hello, World!";
+    String expectedResult = "HELLO, WORLD!";
+    ASSERT_TRUE(str.toUpper(), expectedResult);
+}
+
 int main()
 {
     TestHandler* testHandler = new TestHandler();
@@ -51,7 +65,9 @@ int main()
     testHandler->addTest("testLength", &testLength);
     testHandler->addTest("testEqOperator", &testSetValue);
     testHandler->addTest("testPlusOperator", &testPlusOperator);
-    
+    testHandler->addTest("testToLower", &testToLower);
+    testHandler->addTest("testToUpper", &testToUpper);
+
     ErrCode err = testHandler->runTests();
     if (err != ErrCode::OK) {
         return -1;
