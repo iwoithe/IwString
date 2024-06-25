@@ -79,5 +79,9 @@ float TestHandler::successPercentage()
         }
     }
 
+    m_testResults.successful = successes;
+    m_testResults.failed = fails;
+    m_testResults.unknown = unknowns;
+
     return (float)successes / (float)(successes + fails + unknowns) * 100.0f;
 }
