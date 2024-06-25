@@ -19,7 +19,7 @@ public:
     String operator<<(const String& other);
     bool operator==(const String& other);
 
-    String append(const String& other);
+    String append(const String& other) const;
 
     char& characterAt(int index) const;
 
@@ -28,7 +28,7 @@ public:
     const char* data() const;
     void setData(const char* d);
 
-    int length();
+    const int length() const;
 
 private:
     char* m_data;

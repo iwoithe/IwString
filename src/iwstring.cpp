@@ -54,7 +54,7 @@ bool String::operator==(const String& other)
     return m_data == other.data();
 }
 
-String String::append(const String& other)
+String String::append(const String& other) const
 {
     String res;
 
@@ -109,7 +109,7 @@ void String::setData(const char* d)
         m_data[n] = '\0';
 }
 
-int String::length()
+const int String::length() const
 {
     return strlen(m_data);
 }
