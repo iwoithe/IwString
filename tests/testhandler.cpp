@@ -4,6 +4,7 @@
 #include <ctime>
 #include <chrono>
 #include <iostream>
+#include <memory>
 
 using namespace iw;
 
@@ -15,7 +16,7 @@ void TestHandler::addTest(TestFunc testFunc)
     addTest("{Function name hidden}", testFunc);
 }
 
-void TestHandler::addTest(std::string funcName, TestFunc testFunc)
+void TestHandler::addTest(String funcName, TestFunc testFunc)
 {
     m_funcNames.push_back(funcName);
     m_tests.push_back(testFunc);
@@ -25,16 +26,16 @@ void TestHandler::printResults()
 {
     std::cout << std::ctime(&m_testResults.time) << std::endl;
     std::cout << "Successful " << successPercentage() << "% out of " << m_funcNames.size() << " tests\n" << std::endl;
-    for (auto& [funcName, errCode] : m_testResults.results) {
+    for (auto& [funcNamePtr, errCode] : m_testResults.results) {
         switch (errCode) {
             case ErrCode::SUCCESS:
-                std::cout << funcName << " SUCCESS" << std::endl;
+                std::cout << funcNamePtr.get()->cstr() << " SUCCESS" << std::endl;
                 break;
             case ErrCode::FAIL:
-                std::cout << funcName << " FAIL" << std::endl;
+                std::cout << funcNamePtr.get()->cstr() << " FAIL" << std::endl;
                 break;
             default:
-                std::cout << funcName << " UNKNOWN" << std::endl;
+                std::cout << funcNamePtr.get()->cstr() << " UNKNOWN" << std::endl;
                 break;
         }
     }
@@ -49,7 +50,7 @@ ErrCode TestHandler::runTests()
 
     for (auto test : m_tests) {
         ErrCode c = test();
-        m_testResults.results[m_funcNames[i]] = c;
+        m_testResults.results[std::make_unique<String>(m_funcNames[i])] = c;
         i++;
     }
 

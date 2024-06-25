@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <functional>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -31,8 +32,10 @@ enum ErrCode {
 
 struct TestResults {
     time_t time;
-    // TODO: Use iw::String instead
-    std::unordered_map<std::string, ErrCode> results;
+    int successful;
+    int failed;
+    int unknown;
+    std::unordered_map<std::unique_ptr<String>, ErrCode> results;
 };
 
 using TestFunc = std::function<ErrCode()>;
@@ -43,7 +46,7 @@ public:
     ~TestHandler();
 
     void addTest(TestFunc testFunc);
-    void addTest(std::string funcName, TestFunc testFunc);
+    void addTest(String funcName, TestFunc testFunc);
 
     void printResults();
 
@@ -51,7 +54,7 @@ public:
 
     float successPercentage();
 private:
-    std::vector<std::string> m_funcNames = {};
+    std::vector<String> m_funcNames = {};
     std::vector<TestFunc> m_tests = {};
     TestResults m_testResults = TestResults();
 };
