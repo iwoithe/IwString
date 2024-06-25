@@ -51,7 +51,24 @@ String String::operator<<(const String& other)
 
 bool String::operator==(const String& other)
 {
-    return m_data == other.data();
+    // This data length
+    int tDataLen = strlen(m_data);
+    // Other data length
+    int oDataLen = strlen(other.data());
+
+    if (tDataLen != oDataLen) {
+        return false;
+    }
+
+    for (int i = 0; i < tDataLen; i++) {
+        if (m_data[i] == other.data()[i]) {
+            continue;
+        } else {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 String String::append(const String& other) const
@@ -106,7 +123,9 @@ void String::setData(const char* d)
         m_data[i] = d[i];
     }
 
+    if (m_data[n - 1] != '\0') {
         m_data[n] = '\0';
+    }
 }
 
 const int String::length() const
