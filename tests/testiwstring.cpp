@@ -8,7 +8,7 @@ ErrCode testPlusOperator()
     String hello = "Hello";
     String world = "World";
     String res = hello + ", " + world + "!";
-    String expectedResult = "Hello, World!\0";
+    String expectedResult = "Hello, World!";
 
     ASSERT_TRUE(res, expectedResult)
 }

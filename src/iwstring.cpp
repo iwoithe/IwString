@@ -106,7 +106,7 @@ void String::setData(const char* d)
         m_data[i] = d[i];
     }
 
-    m_data[n] = '\0';
+        m_data[n] = '\0';
 }
 
 int String::length()
