@@ -20,7 +20,7 @@ String::String(String& str)
 
 String::String(const String& str)
 {
-    m_data = const_cast<char*>(str.data());
+    setData(const_cast<char*>(str.data()));
 }
 
 String::~String() {}
