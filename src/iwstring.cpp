@@ -71,6 +71,11 @@ bool String::operator==(const String& other)
     return true;
 }
 
+bool String::operator!=(const String& other)
+{
+    return !(m_data == other.data());
+}
+
 String String::append(const String& other) const
 {
     String res;
