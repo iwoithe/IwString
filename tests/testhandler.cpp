@@ -24,7 +24,7 @@ void TestHandler::addTest(std::string funcName, TestFunc testFunc)
 void TestHandler::printResults()
 {
     std::cout << std::ctime(&m_testResults.time) << std::endl;
-    std::cout << "Successful " << successPercentage() << "%\n" << std::endl;
+    std::cout << "Successful " << successPercentage() << "% out of " << m_funcNames.size() << " tests\n" << std::endl;
     for (auto& [funcName, errCode] : m_testResults.results) {
         switch (errCode) {
             case ErrCode::SUCCESS:
