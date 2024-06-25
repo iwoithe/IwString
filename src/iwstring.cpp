@@ -1,5 +1,4 @@
 #include "iwstring.h"
-#include <string.h>
 
 using namespace iw;
 
