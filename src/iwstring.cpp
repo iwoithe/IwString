@@ -163,6 +163,30 @@ void String::setData(const char* d)
     }
 }
 
+const int String::find(const String& findStr) const
+{
+    return find(0, findStr);
+}
+
+const int String::find(const int& startIndex, const String& findStr) const
+{
+    for (int i = startIndex; i < length(); i++) {
+        for (int j = 0; j < findStr.length(); j++) {
+            if (m_data[i + j] == findStr.characterAt(j)) {
+                if (j < findStr.length() - 1) {
+                    continue;
+                } else {
+                    return i;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+
+    return -1;
+}
+
 const int String::length() const
 {
     return strlen(m_data);

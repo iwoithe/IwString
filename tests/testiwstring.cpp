@@ -23,6 +23,12 @@ ErrCode testEqOperatorMismatchStrSameLength()
     ASSERT_FALSE(str1, str2);
 }
 
+ErrCode testFind()
+{
+    String str = "Hello, World!";
+    ASSERT_TRUE(str.find("el"), 1);
+}
+
 ErrCode testLength()
 {
     String str = "Hello, World!";
@@ -86,6 +92,7 @@ int main()
     testHandler->addTest("testEqOperatorMismatchStrSameLength", &testEqOperatorMismatchStrSameLength);
     testHandler->addTest("testLength", &testLength);
     testHandler->addTest("testEqOperator", &testSetValue);
+    testHandler->addTest("testFind", &testFind);
     testHandler->addTest("testPlusOperator", &testPlusOperator);
     testHandler->addTest("testPlusEqOperator", &testPlusEqOperator);
     testHandler->addTest("testPrepend", &testPrepend);

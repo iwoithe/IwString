@@ -35,6 +35,9 @@ public:
     void setData(char c);
     void setData(const char* d);
 
+    const int find(const String& findStr) const;
+    const int find(const int& startIndex, const String& findStr) const;
+
     const int length() const;
 
     String prepend(const String& other) const;
