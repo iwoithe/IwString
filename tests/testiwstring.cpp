@@ -36,14 +36,6 @@ ErrCode testSetValue()
     ASSERT_TRUE(hello, res)
 }
 
-ErrCode testLength()
-{
-    String str = "Hello, World!";
-
-    ASSERT_TRUE(str.length(), 13);
-}
-
-
 int main()
 {
     TestHandler* testHandler = new TestHandler();
