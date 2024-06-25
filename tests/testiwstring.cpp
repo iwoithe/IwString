@@ -11,6 +11,13 @@ ErrCode testEqOperatorMismatchStrSameLength()
     ASSERT_FALSE(str1, str2);
 }
 
+ErrCode testLength()
+{
+    String str = "Hello, World!";
+
+    ASSERT_TRUE(str.length(), 13);
+}
+
 ErrCode testPlusOperator()
 {
     String hello = "Hello";
