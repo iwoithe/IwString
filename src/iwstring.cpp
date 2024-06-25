@@ -41,12 +41,12 @@ String String::operator=(const String& other)
 
 String String::operator+(const String& other)
 {
-    return appendString(other);
+    return append(other);
 }
 
 String String::operator<<(const String& other)
 {
-    return appendString(other);
+    return append(other);
 }
 
 bool String::operator==(const String& other)
@@ -54,7 +54,7 @@ bool String::operator==(const String& other)
     return m_data == other.data();
 }
 
-String String::appendString(const String& other)
+String String::append(const String& other)
 {
     String res;
 

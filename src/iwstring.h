@@ -19,7 +19,7 @@ public:
     String operator<<(const String& other);
     bool operator==(const String& other);
 
-    String appendString(const String& other);
+    String append(const String& other);
 
     char& characterAt(int index) const;
 
