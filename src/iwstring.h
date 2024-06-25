@@ -37,6 +37,8 @@ public:
 
     const int length() const;
 
+    String prepend(const String& other) const;
+
     std::vector<char> toCharVector() const;
     String toLower();
     String toUpper();

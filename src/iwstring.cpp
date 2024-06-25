@@ -116,7 +116,9 @@ String String::append(const String& other) const
         strData[i + tDataLen] = other.characterAt(i);
     }
 
-    strData[tDataLen + oDataLen] = '\0';
+    if (strData[tDataLen + oDataLen - 1] != '\0') {
+        strData[tDataLen + oDataLen] = '\0';
+    }
 
     res.setData(strData);
 
@@ -164,6 +166,34 @@ void String::setData(const char* d)
 const int String::length() const
 {
     return strlen(m_data);
+}
+
+String String::prepend(const String& other) const
+{
+    String res;
+
+    // This data length
+    int tDataLen = strlen(m_data);
+    // Other data length
+    int oDataLen = strlen(other.data());
+
+    char* strData = new char[tDataLen + oDataLen];
+
+    for (int i = 0; i < oDataLen; i++) {
+        strData[i] = other.characterAt(i);
+    }
+
+    for (int i = 0; i < tDataLen; i++) {
+        strData[i + oDataLen] = m_data[i];
+    }
+
+    if (strData[tDataLen + oDataLen - 1] != '\0') {
+        strData[tDataLen + oDataLen] = '\0';
+    }
+
+    res.setData(strData);
+
+    return res;
 }
 
 std::vector<char> String::toCharVector() const

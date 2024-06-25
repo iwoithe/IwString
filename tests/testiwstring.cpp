@@ -3,6 +3,12 @@
 
 using namespace iw;
 
+ErrCode testAppend()
+{
+    String str = "Hello";
+    ASSERT_TRUE(str.append(", World!"), String("Hello, World!"));
+}
+
 ErrCode testArrayIndexOperator()
 {
     String str = "Hello";
@@ -43,6 +49,12 @@ ErrCode testPlusEqOperator()
     ASSERT_TRUE(str, expectedResult)
 }
 
+ErrCode testPrepend()
+{
+    String str = "Hello";
+    ASSERT_TRUE(str.prepend(", World!"), String(", World!Hello"));
+}
+
 ErrCode testSetValue()
 {
     String hello = "Hello";
@@ -69,12 +81,14 @@ int main()
 {
     TestHandler* testHandler = new TestHandler();
 
+    testHandler->addTest("testAppend", &testAppend);
     testHandler->addTest("testArrayIndexOperator", &testArrayIndexOperator);
     testHandler->addTest("testEqOperatorMismatchStrSameLength", &testEqOperatorMismatchStrSameLength);
     testHandler->addTest("testLength", &testLength);
     testHandler->addTest("testEqOperator", &testSetValue);
     testHandler->addTest("testPlusOperator", &testPlusOperator);
     testHandler->addTest("testPlusEqOperator", &testPlusEqOperator);
+    testHandler->addTest("testPrepend", &testPrepend);
     testHandler->addTest("testToLower", &testToLower);
     testHandler->addTest("testToUpper", &testToUpper);
 
