@@ -19,6 +19,7 @@ public:
     String operator=(const char* str);
     String operator=(const String& other);
     String operator+(const String& other);
+    String& operator+=(const String& other);
     String operator<<(const String& other);
     char& operator[](const int& index);
     bool operator==(const String& other);

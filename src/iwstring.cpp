@@ -54,6 +54,12 @@ String String::operator+(const String& other)
     return append(other);
 }
 
+String& String::operator+=(const String& other)
+{
+    setData(append(other).data());
+    return *this;
+}
+
 String String::operator<<(const String& other)
 {
     return append(other);

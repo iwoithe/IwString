@@ -34,6 +34,15 @@ ErrCode testPlusOperator()
     ASSERT_TRUE(res, expectedResult)
 }
 
+ErrCode testPlusEqOperator()
+{
+    String str = "Hello";
+    str += ", World!";
+    String expectedResult = "Hello, World!";
+
+    ASSERT_TRUE(str, expectedResult)
+}
+
 ErrCode testSetValue()
 {
     String hello = "Hello";
@@ -65,6 +74,7 @@ int main()
     testHandler->addTest("testLength", &testLength);
     testHandler->addTest("testEqOperator", &testSetValue);
     testHandler->addTest("testPlusOperator", &testPlusOperator);
+    testHandler->addTest("testPlusEqOperator", &testPlusEqOperator);
     testHandler->addTest("testToLower", &testToLower);
     testHandler->addTest("testToUpper", &testToUpper);
 
