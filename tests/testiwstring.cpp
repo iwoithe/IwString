@@ -122,5 +122,7 @@ int main()
 
     testHandler->printResults();
 
+    delete testHandler;
+
     return 0;
 }
