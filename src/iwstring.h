@@ -9,6 +9,8 @@ class String
 {
 public:
     String();
+    String(String &&) = default;
+    String &operator=(String &&) = default;
     String(char c);
     String(char* str);
     String(const char* str);
