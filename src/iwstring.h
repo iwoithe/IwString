@@ -51,7 +51,7 @@ public:
     String& toLower();
     String& toUpper();
 
-private:
+protected:
     char* m_data;
 };
 }

@@ -97,37 +97,10 @@ bool String::operator!=(const String& other)
     return !(m_data == other.data());
 }
 
-String String::append(const String& other) const
+String& String::append(const String& other)
 {
-    return append(other, true);
-}
-
-String String::append(const String& other, const bool& insertNullTerm) const
-{
-    String res;
-
-    // This data length
-    int tDataLen = strlen(m_data);
-    // Other data length
-    int oDataLen = strlen(other.data());
-
-    char* strData = new char[tDataLen + oDataLen];
-
-    for (int i = 0; i < tDataLen; i++) {
-        strData[i] = m_data[i];
-    }
-
-    for (int i = 0; i < oDataLen; i++) {
-        strData[i + tDataLen] = other.characterAt(i);
-    }
-
-    if (insertNullTerm && strData[tDataLen + oDataLen - 1] != '\0') {
-        strData[tDataLen + oDataLen] = '\0';
-    }
-
-    res.setData(strData);
-
-    return res;
+    strcat_s(m_data, sizeof(m_data) + sizeof(other.data()), other.data());
+    return *this;
 }
 
 char& String::characterAt(int index) const
@@ -197,32 +170,15 @@ const int String::length() const
     return strlen(m_data);
 }
 
-String String::prepend(const String& other) const
+String& String::prepend(const String& other)
 {
     String res;
+    res.append(other);
+    res.append(m_data);
 
-    // This data length
-    int tDataLen = strlen(m_data);
-    // Other data length
-    int oDataLen = strlen(other.data());
+    m_data = res.m_data;
 
-    char* strData = new char[tDataLen + oDataLen];
-
-    for (int i = 0; i < oDataLen; i++) {
-        strData[i] = other.characterAt(i);
-    }
-
-    for (int i = 0; i < tDataLen; i++) {
-        strData[i + oDataLen] = m_data[i];
-    }
-
-    if (strData[tDataLen + oDataLen - 1] != '\0') {
-        strData[tDataLen + oDataLen] = '\0';
-    }
-
-    res.setData(strData);
-
-    return res;
+    return *this;
 }
 
 void String::replace(const String& findStr, const String& replaceStr)

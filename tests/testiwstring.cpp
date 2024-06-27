@@ -6,7 +6,8 @@ using namespace iw;
 ErrCode testAppend()
 {
     String str = "Hello";
-    ASSERT_TRUE(str.append(", World!"), String("Hello, World!"));
+    str.append(", World!");
+    ASSERT_TRUE(str, String("Hello, World!"));
 }
 
 ErrCode testArrayIndexOperator()
