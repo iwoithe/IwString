@@ -93,8 +93,9 @@ ErrCode testToLower()
 ErrCode testToUpper()
 {
     String str = "Hello, World!";
+    str.toUpper();
     String expectedResult = "HELLO, WORLD!";
-    ASSERT_TRUE(str.toUpper(), expectedResult);
+    ASSERT_TRUE(str, expectedResult);
 }
 
 int main()

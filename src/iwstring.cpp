@@ -262,16 +262,14 @@ std::vector<char> String::toCharVector() const
     return charVector;
 }
 
-String String::toLower()
+String& String::toLower()
 {
-    String res;
-    res.setData(strlwr(m_data));
-    return res;
+    strlwr(m_data);
+    return *this;
 }
 
-String String::toUpper()
+String& String::toUpper()
 {
-    String res;
-    res.setData(strupr(m_data));
-    return res;
+    strupr(m_data);
+    return *this;
 }

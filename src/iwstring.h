@@ -48,8 +48,8 @@ public:
     void replace(const String& findStr, const String& replaceStr);
 
     std::vector<char> toCharVector() const;
-    String toLower();
-    String toUpper();
+    String& toLower();
+    String& toUpper();
 
 private:
     char* m_data;
