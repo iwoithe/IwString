@@ -20,7 +20,7 @@ int main()
     String resStr = helloStr + ", " + worldStr + "!";
     std::cout << resStr.cstr() << std::endl;
 
-    String res2Str = helloStr << ", " << worldStr << "!";
+    String res2Str = helloStr + ", " + worldStr + "!";
     std::cout << res2Str.cstr() << std::endl;
 
     return 0;
