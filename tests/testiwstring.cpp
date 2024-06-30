@@ -13,7 +13,7 @@ ErrCode testAppend()
 ErrCode testArrayIndexOperator()
 {
     String str = "Hello";
-    ASSERT_TRUE(static_cast<String>(str[2]), String("l"));
+    ASSERT_TRUE(str[2], 'l');
 }
 
 ErrCode testEqOperatorMismatchStrSameLength()
