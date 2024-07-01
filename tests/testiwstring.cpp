@@ -10,6 +10,13 @@ ErrCode testAppend()
     ASSERT_TRUE(str, String("Hello, World!"));
 }
 
+ErrCode testAppendNumber()
+{
+    String str = "Hello";
+    str.append(21);
+    ASSERT_TRUE(str, String("Hello21"));
+}
+
 ErrCode testArrayIndexOperator()
 {
     String str = "Hello";
@@ -111,6 +118,7 @@ int main()
     TestHandler* testHandler = new TestHandler();
 
     testHandler->addTest("testAppend", &testAppend);
+    testHandler->addTest("testAppendNumber", &testAppendNumber);
     testHandler->addTest("testArrayIndexOperator", &testArrayIndexOperator);
     testHandler->addTest("testEqOperatorMismatchStrSameLength", &testEqOperatorMismatchStrSameLength);
     testHandler->addTest("testLength", &testLength);

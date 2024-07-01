@@ -101,7 +101,23 @@ bool String::operator!=(const String& other)
 
 String& String::append(const String& other)
 {
-    strcat_s(m_data, length() + String::length(other, true), other.data());
+    int len = length() + other.length(true);
+    char* newStr = new char[len];
+
+    for (int i = 0; i < length(); i++) {
+        newStr[i] = m_data[i];
+    }
+
+    for (int i = 0; i < other.length(true); i++) {
+        newStr[length() + i] = other.characterAt(i);
+    }
+
+    delete m_data;
+    m_data = new char[len];
+
+    strcpy_s(m_data, len, newStr);
+    delete[] newStr;
+
     return *this;
 }
 
