@@ -81,6 +81,10 @@ std::ostream& operator<<(std::ostream& os, const String& other)
 
 char& String::operator[](const int& index)
 {
+    if (index >= length() || index < 0) {
+        throw std::out_of_range("Index out of range");
+    }
+
     return m_data[index];
 }
 
