@@ -1,6 +1,7 @@
 #include "iwstring.h"
 
 #include <cstring>
+#include <stdexcept>
 
 using namespace iw;
 
@@ -79,7 +80,7 @@ std::ostream& operator<<(std::ostream& os, const String& other)
     return os;
 }
 
-char& String::operator[](const int& index)
+char& String::operator[](const size_t& index)
 {
     if (index >= length() || index < 0) {
         throw std::out_of_range("Index out of range");
@@ -121,7 +122,7 @@ String& String::append(const String& other)
     return *this;
 }
 
-char& String::characterAt(int index) const
+char& String::characterAt(size_t index) const
 {
     return m_data[index];
 }
@@ -199,12 +200,12 @@ void String::setData(const String& str, bool clearFirst)
     appendNullTerminator();
 }
 
-const int String::find(const String& findStr) const
+const size_t String::find(const String& findStr) const
 {
     return find(0, findStr);
 }
 
-const int String::find(const int& startIndex, const String& findStr) const
+const size_t String::find(const size_t& startIndex, const String& findStr) const
 {
     for (int i = startIndex; i < length(); i++) {
         for (int j = 0; j < findStr.length(); j++) {
@@ -223,12 +224,12 @@ const int String::find(const int& startIndex, const String& findStr) const
     return -1;
 }
 
-const int String::length() const
+const size_t String::length() const
 {
     return length(false);
 }
 
-const int String::length(const bool includeNullTerminator) const
+const size_t String::length(const bool includeNullTerminator) const
 {
     if (m_data) {
         if (includeNullTerminator) {
@@ -241,12 +242,12 @@ const int String::length(const bool includeNullTerminator) const
     }
 }
 
-const int String::length(const char* str)
+const size_t String::length(const char* str)
 {
     return length(str, false);
 }
 
-const int String::length(const char* str, const bool includeNullTerminator)
+const size_t String::length(const char* str, const bool includeNullTerminator)
 {
     if (str) {
         if (includeNullTerminator) {
@@ -259,12 +260,12 @@ const int String::length(const char* str, const bool includeNullTerminator)
     }
 }
 
-const int String::length(const String& str)
+const size_t String::length(const String& str)
 {
     return length(str.data(), false);
 }
 
-const int String::length(const String& str, const bool includeNullTerminator)
+const size_t String::length(const String& str, const bool includeNullTerminator)
 {
     return length(str.data(), includeNullTerminator);
 }
@@ -282,7 +283,7 @@ String& String::prepend(const String& other)
 
 String& String::replace(const String& findStr, const String& replaceStr)
 {
-    int findIndex = find(findStr);
+    size_t findIndex = find(findStr);
     
     while (findIndex != -1) {
         int remainingStrLength = length(true) - (findIndex + findStr.length());
