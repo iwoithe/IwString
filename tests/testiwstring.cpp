@@ -78,6 +78,9 @@ ErrCode testReplace()
 
 ErrCode testReplaceMultiWords()
 {
+    // TODO: There is an obscure error here
+    // This test succeeds when running the executable normally
+    // Inside gdb, this test fails
     String str = "Hello World Hello World";
     str.replace("World", "Replaced");
     ASSERT_TRUE(str, String("Hello Replaced Hello Replaced"));
