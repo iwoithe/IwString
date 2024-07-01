@@ -34,7 +34,7 @@ const String TestHandler::resultsString() const
     res.append("% out of ");
     res.append(m_funcNames.size());
     res.append(" tests\n");
-    res.append(std::to_string(m_testResults.successful).data());
+    res.append(m_testResults.successful);
     res.append(" successful, ");
     res.append(m_testResults.failed);
     res.append(" fails, ");

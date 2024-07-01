@@ -12,6 +12,10 @@ class String
 {
 public:
     String();
+    String(const double& d);
+    String(const float& f);
+    String(const int& i);
+    String(const size_t& s);
     String(char c);
     String(const char* str);
     String(const String& str);
@@ -26,6 +30,10 @@ public:
     bool operator==(const String& other);
     bool operator!=(const String& other);
 
+    String& append(const double& other);
+    String& append(const float& other);
+    String& append(const int& other);
+    String& append(const size_t& other);
     String& append(const String& other);
 
     char& characterAt(size_t index) const;

@@ -4,12 +4,33 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 using namespace iw;
 
 String::String()
 {
     initData(0);
+}
+
+String::String(const double& d)
+{
+    setData(std::to_string(d).data());
+}
+
+String::String(const float& f)
+{
+    setData(std::to_string(f).data());
+}
+
+String::String(const int& i)
+{
+    setData(std::to_string(i).data());
+}
+
+String::String(const size_t& s)
+{
+    setData(std::to_string(s).data());
 }
 
 String::String(char c)
@@ -99,6 +120,27 @@ bool String::operator==(const String& other)
 bool String::operator!=(const String& other)
 {
     return !(m_data == other.data());
+}
+
+String& String::append(const double& other)
+{
+    return append(std::to_string(other).data());
+}
+
+String& String::append(const float& other)
+{
+    return append(std::to_string(other).data());
+}
+
+
+String& String::append(const int& other)
+{
+    return append(std::to_string(other).data());
+}
+
+String& String::append(const size_t& other)
+{
+    return append(std::to_string(other).data());
 }
 
 String& String::append(const String& other)
