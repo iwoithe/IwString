@@ -9,7 +9,7 @@ int main()
     String str = String();
     str.setData("Hello, World!");
     std::cout << str.data() << std::endl;
-    std::cout << str.cstr() << std::endl;
+    std::cout << str.cStr() << std::endl;
 
     std::cout << str.length() << std::endl;
 
@@ -18,10 +18,10 @@ int main()
     String helloStr = String("Hello");
     String worldStr = String("World");
     String resStr = helloStr + ", " + worldStr + "!";
-    std::cout << resStr.cstr() << std::endl;
+    std::cout << resStr.cStr() << std::endl;
 
     String res2Str = helloStr + ", " + worldStr + "!";
-    std::cout << res2Str.cstr() << std::endl;
+    std::cout << res2Str.cStr() << std::endl;
 
     return 0;
 }

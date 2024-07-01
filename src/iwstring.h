@@ -34,7 +34,7 @@ public:
 
     String& clear();
 
-    const char* cstr() const;
+    const char* cStr() const;
 
     const char* data() const;
     void setData(char c);

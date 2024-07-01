@@ -30,13 +30,13 @@ void TestHandler::printResults()
     for (auto& [funcNamePtr, errCode] : m_testResults.results) {
         switch (errCode) {
             case ErrCode::SUCCESS:
-                std::cout << funcNamePtr.get()->cstr() << " SUCCESS" << std::endl;
+                std::cout << funcNamePtr.get()->cStr() << " SUCCESS" << std::endl;
                 break;
             case ErrCode::FAIL:
-                std::cout << funcNamePtr.get()->cstr() << " FAIL" << std::endl;
+                std::cout << funcNamePtr.get()->cStr() << " FAIL" << std::endl;
                 break;
             default:
-                std::cout << funcNamePtr.get()->cstr() << " UNKNOWN" << std::endl;
+                std::cout << funcNamePtr.get()->cStr() << " UNKNOWN" << std::endl;
                 break;
         }
     }

@@ -76,7 +76,7 @@ bool String::operator<(const String& other)
 
 std::ostream& operator<<(std::ostream& os, const String& other)
 {
-    os << other.cstr() << std::endl;
+    os << other.cStr() << std::endl;
     return os;
 }
 
@@ -133,7 +133,7 @@ String& String::clear()
     return *this;
 }
 
-const char* String::cstr() const
+const char* String::cStr() const
 {
     // A wrapper for String::data()
     return data();
