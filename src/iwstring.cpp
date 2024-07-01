@@ -112,6 +112,15 @@ char& String::operator[](const size_t& index)
     return m_data[index];
 }
 
+const char& String::operator[](const size_t& index) const
+{
+    if (index >= length() || index < 0) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    return m_data[index];
+}
+
 bool String::operator==(const String& other)
 {
     return equalTo(other);
