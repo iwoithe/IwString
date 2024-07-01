@@ -113,6 +113,20 @@ ErrCode testToUpper()
     ASSERT_TRUE(str, expectedResult);
 }
 
+ErrCode testReadFromConsole()
+{
+    String str;
+    str.readFromConsole();
+    ASSERT_TRUE(str, "ab cd");
+}
+
+ErrCode testWriteToConsole()
+{
+    String str("\"Hello, World!\" from testWriteToConsole\n");
+    str.writeToConsole();
+    return ErrCode::SUCCESS;
+}
+
 int main()
 {
     TestHandler* testHandler = new TestHandler();
@@ -132,6 +146,8 @@ int main()
     testHandler->addTest("testReplaceMultiWords", &testReplaceMultiWords);
     testHandler->addTest("testToLower", &testToLower);
     testHandler->addTest("testToUpper", &testToUpper);
+    // testHandler->addTest("testReadFromConsole", &testReadFromConsole);
+    testHandler->addTest("testWriteToConsole", &testWriteToConsole);
 
     ErrCode err = testHandler->runTests();
     if (err != ErrCode::OK) {

@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstring>
 #include <vector>
+#include <iostream>
 #include <ostream>
 
 namespace iw {
@@ -11,8 +12,6 @@ class String
 {
 public:
     String();
-    String(String &&) = default;
-    String &operator=(String &&) = default;
     String(char c);
     String(const char* str);
     String(const String& str);
@@ -23,7 +22,6 @@ public:
     String operator+(const String& other);
     String& operator+=(const String& other);
     bool operator<(const String& other);
-    friend std::ostream& operator<<(std::ostream& os, const String& other);
     char& operator[](const size_t& index);
     bool operator==(const String& other);
     bool operator!=(const String& other);
@@ -33,6 +31,8 @@ public:
     char& characterAt(size_t index) const;
 
     String& clear();
+    String& clear(const int newLength);
+    String& clear(const int newLength, const bool appendNullTerminator_);
 
     const char* cStr() const;
 
@@ -64,6 +64,9 @@ public:
     String& toLower();
     String& toUpper();
 
+    void readFromConsole();
+    void writeToConsole() const;
+
 private:
     char* m_data;
 
@@ -78,6 +81,8 @@ private:
     void initData(const int newLength);
     void initData(const int newLength, const bool appendNullTerminator_);
 };
+
+std::ostream& operator<<(std::ostream& os, const String other);
 }
 
 #endif // IWSTRING_H

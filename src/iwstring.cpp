@@ -1,6 +1,8 @@
 #include "iwstring.h"
 
+#include <cstddef>
 #include <cstring>
+#include <iostream>
 #include <stdexcept>
 
 using namespace iw;
@@ -74,7 +76,7 @@ bool String::operator<(const String& other)
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const String& other)
+std::ostream& iw::operator<<(std::ostream& os, const String other)
 {
     os << other.cStr() << std::endl;
     return os;
@@ -129,6 +131,18 @@ char& String::characterAt(size_t index) const
 String& String::clear()
 {
     clearData();
+    return *this;
+}
+
+String& String::clear(const int newLength)
+{
+    clearData(newLength);
+    return *this;
+}
+
+String& String::clear(const int newLength, const bool appendNullTerminator_)
+{
+    clearData(newLength, appendNullTerminator_);
     return *this;
 }
 
@@ -365,6 +379,25 @@ String& String::toUpper()
     return *this;
 }
 
+void String::readFromConsole()
+{
+    int len = 100000;
+    char* str = new char[len];
+
+    std::cin.getline(str, len);
+
+    delete[] m_data;
+    m_data = new char[strlen(str) + 1];
+    strcpy_s(m_data, strlen(str) + 1, str);
+
+    delete[] str;
+    std::cin.clear();
+}
+
+void String::writeToConsole() const
+{
+    std::cout << m_data << std::endl;
+}
 
 void String::appendNullTerminator()
 {
