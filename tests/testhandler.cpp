@@ -5,6 +5,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <string>
 
 using namespace iw;
 
@@ -22,24 +23,45 @@ void TestHandler::addTest(String funcName, TestFunc testFunc)
     m_tests.push_back(testFunc);
 }
 
-void TestHandler::printResults()
+const String TestHandler::resultsString() const
 {
-    std::cout << std::ctime(&m_testResults.time) << std::endl;
-    std::cout << "Successful " << successPercentage() << "% out of " << m_funcNames.size() << " tests" << std::endl;
-    std::cout << m_testResults.successful << " successful, " << m_testResults.failed << " fails, " << m_testResults.unknown << " unknowns\n" << std::endl;
+    String res;
+
+    res.append(std::ctime(&m_testResults.time));
+    res.append("\n");
+    res.append("Successful ");
+    res.append(calcSuccessPercentage());
+    res.append("% out of ");
+    res.append(m_funcNames.size());
+    res.append(" tests\n");
+    res.append(std::to_string(m_testResults.successful).data());
+    res.append(" successful, ");
+    res.append(m_testResults.failed);
+    res.append(" fails, ");
+    res.append(m_testResults.unknown);
+    res.append(" unknowns\n\n");
+
     for (auto& [funcNamePtr, errCode] : m_testResults.results) {
+        res.append(funcNamePtr.get()->cStr());
         switch (errCode) {
             case ErrCode::SUCCESS:
-                std::cout << funcNamePtr.get()->cStr() << " SUCCESS" << std::endl;
+                res.append(" SUCCESS\n");
                 break;
             case ErrCode::FAIL:
-                std::cout << funcNamePtr.get()->cStr() << " FAIL" << std::endl;
+                res.append(" FAIL\n");
                 break;
             default:
-                std::cout << funcNamePtr.get()->cStr() << " UNKNOWN" << std::endl;
+                res.append(" UNKNOWN\n");
                 break;
         }
     }
+
+    return res;
+}
+
+void TestHandler::printResults() const
+{
+    resultsString().writeToConsole();
 }
 
 ErrCode TestHandler::runTests()
@@ -55,10 +77,12 @@ ErrCode TestHandler::runTests()
         i++;
     }
 
+    addResults();
+
     return ErrCode::OK;
 }
 
-float TestHandler::successPercentage()
+void TestHandler::addResults()
 {
     int successes = 0;
     int fails = 0;
@@ -83,6 +107,9 @@ float TestHandler::successPercentage()
     m_testResults.successful = successes;
     m_testResults.failed = fails;
     m_testResults.unknown = unknowns;
+}
 
-    return (float)successes / (float)(successes + fails + unknowns) * 100.0f;
+float TestHandler::calcSuccessPercentage() const
+{
+    return (float)m_testResults.successful / (float)(m_funcNames.size()) * 100.0f;
 }

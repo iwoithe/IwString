@@ -48,11 +48,13 @@ public:
     void addTest(TestFunc testFunc);
     void addTest(String funcName, TestFunc testFunc);
 
-    void printResults();
+    const String resultsString() const;
+    void printResults() const;
 
     ErrCode runTests();
 
-    float successPercentage();
+    void addResults();
+    float calcSuccessPercentage() const;
 private:
     std::vector<String> m_funcNames = {};
     std::vector<TestFunc> m_tests = {};
