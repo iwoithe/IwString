@@ -44,6 +44,8 @@ public:
     void setData(const char* d, bool clearFirst);
     void setData(const String& str, bool clearFirst);
 
+    bool equalTo(const String& other);
+
     const size_t find(const String& findStr) const;
     const size_t find(const size_t& startIndex, const String& findStr) const;
 

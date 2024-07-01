@@ -91,24 +91,7 @@ char& String::operator[](const size_t& index)
 
 bool String::operator==(const String& other)
 {
-    // This data length
-    int tDataLen = strlen(m_data);
-    // Other data length
-    int oDataLen = strlen(other.data());
-
-    if (tDataLen != oDataLen) {
-        return false;
-    }
-
-    for (int i = 0; i < tDataLen; i++) {
-        if (m_data[i] == other.data()[i]) {
-            continue;
-        } else {
-            return false;
-        }
-    }
-
-    return true;
+    return equalTo(other);
 }
 
 bool String::operator!=(const String& other)
@@ -142,6 +125,28 @@ const char* String::cStr() const
 const char* String::data() const
 {
     return m_data;
+}
+
+bool String::equalTo(const String& other)
+{
+    // This data length
+    int tDataLen = strlen(m_data);
+    // Other data length
+    int oDataLen = strlen(other.data());
+
+    if (tDataLen != oDataLen) {
+        return false;
+    }
+
+    for (int i = 0; i < tDataLen; i++) {
+        if (m_data[i] == other.data()[i]) {
+            continue;
+        } else {
+            return false;
+        }
+    }
+
+    return true; 
 }
 
 void String::setData(char c)
