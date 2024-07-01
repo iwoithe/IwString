@@ -287,12 +287,12 @@ String& String::replace(const String& findStr, const String& replaceStr)
     
     while (findIndex != -1) {
         int remainingStrLength = length(true) - (findIndex + findStr.length());
-        char* remainingStr = new char[remainingStrLength];
+        char* remainingStr = new char[remainingStrLength + 1];
         for (int i = 0; i < remainingStrLength; i++) {
             remainingStr[i] = m_data[findIndex + findStr.length() + i];
         }
 
-        remainingStr[remainingStrLength] = '\0';
+        remainingStr[remainingStrLength - 1] = '\0';
 
         int newStrLength = findIndex + replaceStr.length() + remainingStrLength;
 
@@ -304,7 +304,7 @@ String& String::replace(const String& findStr, const String& replaceStr)
             data[i] = m_data[i];
         }
 
-        data[findIndex + 1] = '\0';
+        data[findIndex] = '\0';
 
         strcat_s(newStr, newStrLength, data);
         strcat_s(newStr, newStrLength, replaceStr.data());
@@ -312,10 +312,10 @@ String& String::replace(const String& findStr, const String& replaceStr)
 
         setData(newStr);
 
+        findIndex = find(findStr);
+
         delete[] remainingStr;
         delete[] newStr;
-
-        findIndex = find(findStr);
     }
 
     return *this;
