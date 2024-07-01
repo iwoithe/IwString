@@ -62,6 +62,17 @@ String& String::operator+=(const String& other)
     return *this;
 }
 
+bool String::operator<(const String& other)
+{
+    int res = strcmp(m_data, other.m_data);
+
+    if (res < 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 std::ostream& operator<<(std::ostream& os, const String& other)
 {
     os << other.cstr() << std::endl;

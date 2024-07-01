@@ -37,6 +37,13 @@ ErrCode testLength()
     ASSERT_TRUE(str.length(), 13);
 }
 
+ErrCode testLessThanOperator()
+{
+    String a = "abcd";
+    String b = "abed";
+    ASSERT_LT(a, b);
+}
+
 ErrCode testPlusOperator()
 {
     String hello = "Hello";
@@ -107,6 +114,7 @@ int main()
     testHandler->addTest("testArrayIndexOperator", &testArrayIndexOperator);
     testHandler->addTest("testEqOperatorMismatchStrSameLength", &testEqOperatorMismatchStrSameLength);
     testHandler->addTest("testLength", &testLength);
+    testHandler->addTest("testLessThanOperator", &testLessThanOperator);
     testHandler->addTest("testEqOperator", &testSetValue);
     testHandler->addTest("testFind", &testFind);
     testHandler->addTest("testPlusOperator", &testPlusOperator);

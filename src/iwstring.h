@@ -21,6 +21,7 @@ public:
     String& operator=(const String& other);
     String operator+(const String& other);
     String& operator+=(const String& other);
+    bool operator<(const String& other);
     friend std::ostream& operator<<(std::ostream& os, const String& other);
     char& operator[](const int& index);
     bool operator==(const String& other);
