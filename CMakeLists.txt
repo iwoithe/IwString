@@ -4,6 +4,5 @@ project(IwString)
 set(C_STANDARD_REQUIRED 20)
 set(CXX_STANDARD_REQUIRED 20)
 
-add_subdirectory(examples)
 add_subdirectory(src)
 add_subdirectory(tests)
