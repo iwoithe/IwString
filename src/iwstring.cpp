@@ -4,7 +4,6 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
-#include <string.h>
 #include <string>
 
 using namespace iw;
