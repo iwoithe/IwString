@@ -206,17 +206,17 @@ String& String::append(const String& other)
     int len = length() + other.length(true);
     char* newStr = new char[len];
 
+    // Copy current contents
     for (int i = 0; i < length(); i++) {
         newStr[i] = m_data[i];
     }
 
+    // Copy the other string's contents
     for (int i = 0; i < other.length(true); i++) {
         newStr[length() + i] = other.characterAt(i);
     }
 
-    delete[] m_data;
-    m_data = new char[len];
-
+    clearData(len);
     strcpy_s(m_data, len, newStr);
     delete[] newStr;
 
@@ -232,35 +232,40 @@ String& String::appendColor(Color color, ColorLayer colorLayer)
 String& String::stripFormatting()
 {
     // Removes all ANSI escape codes
+    // There's a little custom behaviour here, hence why the replace method can't be used
 
+    // Find the first ANSI escape code (if it exists)
     size_t findIndex = find("\033[");
 
     while (findIndex != -1) {
         int ansiStrLen = 1;
-        char nextChar = m_data[findIndex + ansiStrLen];
+        // Pre-set the nextChar to the first letter
+        char nextChar = m_data[findIndex + ansiStrLen - 1];
         while (nextChar != 'm') {
+            // Assign nextChar to the next letter
             nextChar = m_data[findIndex + ansiStrLen];
             ansiStrLen++;
         }
 
+        // Copy the whole ANSI escape code into a string
         char* ansiStr = new char[ansiStrLen];
         for (int i = 0; i < ansiStrLen; i++) {
             ansiStr[i] = m_data[findIndex + i];
         }
 
+        // Copy the remainder of the string
         int remainingStrLength = length(true) - (findIndex + ansiStrLen);
         char* remainingStr = new char[remainingStrLength + 1];
         for (int i = 0; i < remainingStrLength; i++) {
             remainingStr[i] = m_data[findIndex + ansiStrLen + i];
         }
 
-        remainingStr[remainingStrLength - 1] = '\0';
-
         int newStrLength = findIndex + remainingStrLength;
 
         char* newStr = new char[newStrLength];
         newStr[0] = '\0';
 
+        // Copy the part of the string prior to the find string
         char* data = new char[findIndex + 1];
         for (int i = 0; i < findIndex; i++) {
             data[i] = m_data[i];
@@ -268,7 +273,9 @@ String& String::stripFormatting()
 
         data[findIndex] = '\0';
 
+        // Concatenate the first part of the string onto a new string
         strcat_s(newStr, newStrLength, data);
+        // Concatenate the remaining part of the string (not including the find string)
         strcat_s(newStr, newStrLength, remainingStr);
 
         setData(newStr);
@@ -340,13 +347,16 @@ bool String::equalTo(const String& other)
     int oDataLen = strlen(other.data());
 
     if (tDataLen != oDataLen) {
+        // Prevents from running the for loop, which is inefficient for just a mismatch in string size
         return false;
     }
 
     for (int i = 0; i < tDataLen; i++) {
         if (m_data[i] == other.data()[i]) {
+            // Characters are the same
             continue;
         } else {
+            // Character mismatch
             return false;
         }
     }
@@ -372,8 +382,10 @@ void String::setData(const String& str)
 void String::setData(char c, bool clearFirst)
 {
     if (clearFirst) {
+        // Initialize m_data - deletes m_data first
         clearData(1, true);
     } else {
+        // Initializes m_data - does not delete m_data first
         initData(1, true);
     }
 
@@ -386,8 +398,10 @@ void String::setData(const char* d, bool clearFirst)
     int len = String::length(d, true);
 
     if (clearFirst) {
+        // Initialize m_data - deletes m_data first
         clearData(String::length(d), true);
     } else {
+        // Initializes m_data - does not delete m_data first
         initData(String::length(d), true);
     }
 
@@ -398,11 +412,14 @@ void String::setData(const char* d, bool clearFirst)
 void String::setData(const String& str, bool clearFirst)
 {
     if (clearFirst) {
+        // Initialize m_data - deletes m_data first
         clearData(str.length(), true);
     } else {
+        // Initializes m_data - does not delete m_data first
         initData(str.length(), true);
     }
 
+    // Copy the contents of str into m_data
     for (int i = 0; i < str.length(true); i++) {
         m_data[i] = str.characterAt(i);
     }
@@ -417,15 +434,22 @@ const size_t String::find(const String& findStr) const
 
 const size_t String::find(const size_t& startIndex, const String& findStr) const
 {
+    // A brute-force algorithm
+    // Loop through all characters
     for (int i = startIndex; i < length(); i++) {
+        // Loop through each index of findStr
         for (int j = 0; j < findStr.length(); j++) {
             if (m_data[i + j] == findStr.characterAt(j)) {
                 if (j < findStr.length() - 1) {
+                    // Not at the end of the string, loop j again
                     continue;
                 } else {
+                    // At the end of the find string's indexes
+                    // Strings matched
                     return i;
                 }
             } else {
+                // Characters didn't match, loop i again
                 break;
             }
         }
@@ -483,7 +507,9 @@ const size_t String::length(const String& str, const bool includeNullTerminator)
 String& String::prepend(const String& other)
 {
     String res;
+    // Append the other string first
     res.append(other);
+    // Append m_data on the end
     res.append(m_data);
 
     m_data = res.m_data;
@@ -493,22 +519,19 @@ String& String::prepend(const String& other)
 
 String& String::replace(const String& findStr, const String& replaceStr)
 {
+    // Find the first find string (if it exists)
     size_t findIndex = find(findStr);
-    
+
     while (findIndex != -1) {
+        // Copy the remainder of the string after the find string
         int remainingStrLength = length(true) - (findIndex + findStr.length());
         char* remainingStr = new char[remainingStrLength + 1];
         for (int i = 0; i < remainingStrLength; i++) {
             remainingStr[i] = m_data[findIndex + findStr.length() + i];
         }
 
-        remainingStr[remainingStrLength - 1] = '\0';
 
-        int newStrLength = findIndex + replaceStr.length() + remainingStrLength;
-
-        char* newStr = new char[newStrLength];
-        newStr[0] = '\0';
-
+        // Copy m_data up until the start of findStr into a new string for concatenatation
         char* data = new char[findIndex + 1];
         for (int i = 0; i < findIndex; i++) {
             data[i] = m_data[i];
@@ -516,6 +539,12 @@ String& String::replace(const String& findStr, const String& replaceStr)
 
         data[findIndex] = '\0';
 
+        int newStrLength = findIndex + replaceStr.length() + remainingStrLength;
+
+        char* newStr = new char[newStrLength];
+        newStr[0] = '\0';
+
+        // Concatenate all the strings together not including the findStr
         strcat_s(newStr, newStrLength, data);
         strcat_s(newStr, newStrLength, replaceStr.data());
         strcat_s(newStr, newStrLength, remainingStr);
@@ -561,11 +590,12 @@ void String::readFromConsole()
 
     std::cin.getline(str, len);
 
-    delete[] m_data;
-    m_data = new char[strlen(str) + 1];
+    clearData(String::length(str), true);
+
     strcpy_s(m_data, strlen(str) + 1, str);
 
     delete[] str;
+
     std::cin.clear();
 }
 
@@ -584,22 +614,12 @@ void String::writeToConsole(const bool& flushEndOfLine) const
 
 void String::appendNullTerminator()
 {
+    // WARNING: This method does not check to see if m_data has enough space allocated before appending the null terminator
     int len = length();
 
     if (m_data[len - 1] != '\0') {
         m_data[len] = '\0';
     }
-}
-
-String String::appendString(const String& other)
-{
-    char* str = new char[length() + other.length() + 1];
-    strcat_s(str, length(), m_data);
-    strcat_s(str, String::length(other, true), other.data());
-
-    String res(str);
-    delete[] str;
-    return res;
 }
 
 void String::clearData()
@@ -640,6 +660,7 @@ void String::initData(const int newLength, const bool appendNullTerminator_)
     }
 
     if (newLength == 0 && appendNullTerminator_) {
+        // Initialize m_data with the null terminator
         m_data[0] = '\0';
     }
 }

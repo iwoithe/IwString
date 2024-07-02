@@ -109,8 +109,6 @@ private:
 
     void appendNullTerminator();
 
-    String appendString(const String& other);
-
     void clearData();
     void clearData(const int newLength);
     void clearData(const int newLength, const bool appendNullTerminator_);
