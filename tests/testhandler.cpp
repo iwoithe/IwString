@@ -99,13 +99,23 @@ void TestHandler::printResults() const
 
 void TestHandler::saveResultsToFile() const
 {
-    saveResultsToFile("testresults.log");
+    saveResultsToFile("testresults.log", true);
 }
 
-void TestHandler::saveResultsToFile(const String& fileName) const
+void TestHandler::saveResultsToFile(const bool& appendMode) const
+{
+    saveResultsToFile("testresults.log", appendMode);
+}
+
+void TestHandler::saveResultsToFile(const String& fileName, const bool& appendMode) const
 {
     std::fstream file;
-    file.open(fileName.cStr(), std::ios::out);
+    if (appendMode) {
+        file.open(fileName.cStr(), std::ios::app);
+    } else {
+        file.open(fileName.cStr(), std::ios::out);
+    }
+
     if (!file.is_open()) {
         String errMessage;
         errMessage.setColor(Color::Red, ColorLayer::Foreground);

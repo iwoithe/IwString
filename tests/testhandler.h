@@ -51,7 +51,8 @@ public:
     const String resultsString() const;
     void printResults() const;
     void saveResultsToFile() const;
-    void saveResultsToFile(const String& fileName) const;
+    void saveResultsToFile(const bool& append) const;
+    void saveResultsToFile(const String& fileName, const bool& appendMode) const;
 
     ErrCode runTests();
 
