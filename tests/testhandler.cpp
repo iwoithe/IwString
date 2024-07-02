@@ -103,14 +103,19 @@ void TestHandler::saveResultsToFile() const
     String fileName = "testresults.txt";
     std::fstream file;
     file.open(fileName.cStr(), std::ios::out);
-    if (file.is_open()) {
-        file << resultsString() << std::endl;
-    } else {
-        String errMessage = "[ERROR] (TestHandler::saveResultsToFile) \"";
+    if (!file.is_open()) {
+        String errMessage;
+        errMessage.setColor(Color::Red, ColorLayer::Foreground);
+        errMessage.append("[ERROR] (TestHandler::saveResultsToFile) \"");
         errMessage.append(fileName).append("\" could not be opened");
         errMessage.writeToConsole();
+        return;
     }
 
+    String res = resultsString();
+    res.stripFormatting();
+
+    file << res << std::endl;
     file.close();
 }
 

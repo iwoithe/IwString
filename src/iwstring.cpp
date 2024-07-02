@@ -229,6 +229,60 @@ String& String::appendColor(Color color, ColorLayer colorLayer)
     return *this;
 }
 
+String& String::stripFormatting()
+{
+    // Removes all ANSI escape codes
+
+    size_t findIndex = find("\033[");
+
+    while (findIndex != -1) {
+        int ansiStrLen = 1;
+        char nextChar = m_data[findIndex + ansiStrLen];
+        while (nextChar != 'm') {
+            nextChar = m_data[findIndex + ansiStrLen];
+            ansiStrLen++;
+        }
+
+        char* ansiStr = new char[ansiStrLen];
+        for (int i = 0; i < ansiStrLen; i++) {
+            ansiStr[i] = m_data[findIndex + i];
+        }
+
+        int remainingStrLength = length(true) - (findIndex + ansiStrLen);
+        char* remainingStr = new char[remainingStrLength + 1];
+        for (int i = 0; i < remainingStrLength; i++) {
+            remainingStr[i] = m_data[findIndex + ansiStrLen + i];
+        }
+
+        remainingStr[remainingStrLength - 1] = '\0';
+
+        int newStrLength = findIndex + remainingStrLength;
+
+        char* newStr = new char[newStrLength];
+        newStr[0] = '\0';
+
+        char* data = new char[findIndex + 1];
+        for (int i = 0; i < findIndex; i++) {
+            data[i] = m_data[i];
+        }
+
+        data[findIndex] = '\0';
+
+        strcat_s(newStr, newStrLength, data);
+        strcat_s(newStr, newStrLength, remainingStr);
+
+        setData(newStr);
+
+        findIndex = find("\033[");
+
+        delete[] remainingStr;
+        delete[] newStr;
+        delete[] ansiStr;
+    }
+
+    return *this;
+}
+
 char& String::characterAt(size_t index) const
 {
     return m_data[index];
@@ -258,17 +312,19 @@ const char* String::cStr() const
     return data();
 }
 
-void String::setColor(Color color, ColorLayer colorLayer)
+String& String::setColor(Color color, ColorLayer colorLayer)
 {
-    setColor(color, colorLayer, true);
+    return setColor(color, colorLayer, true);
 }
 
-void String::setColor(Color color, ColorLayer colorLayer, const bool& clearAtEndOfLine)
+String& String::setColor(Color color, ColorLayer colorLayer, const bool& clearAtEndOfLine)
 {
     prepend(getCodeFromColor(color, colorLayer));
     if (clearAtEndOfLine) {
         append(getCodeFromColor(Color::None, ColorLayer::Foreground));
     }
+
+    return *this;
 }
 
 const char* String::data() const

@@ -67,8 +67,10 @@ public:
     const char* cStr() const;
 
     String& appendColor(Color color, ColorLayer colorLayer);
-    void setColor(Color color, ColorLayer colorLayer);
-    void setColor(Color color, ColorLayer colorLayer, const bool& clearAtEndOfLine);
+    String& setColor(Color color, ColorLayer colorLayer);
+    String& setColor(Color color, ColorLayer colorLayer, const bool& clearAtEndOfLine);
+
+    String& stripFormatting();
 
     const char* data() const;
     void setData(char c);
