@@ -131,7 +131,7 @@ ErrCode testWriteToConsole()
 {
     String str("\"Hello, World!\" from testWriteToConsole\n");
     str.writeToConsole();
-    return ErrCode::SUCCESS;
+    return ErrCode::Success;
 }
 
 int main()
@@ -158,7 +158,7 @@ int main()
     testHandler->addTest("testWriteToConsole", &testWriteToConsole);
 
     ErrCode err = testHandler->runTests();
-    if (err != ErrCode::OK) {
+    if (err != ErrCode::Ok) {
         return -1;
     }
 

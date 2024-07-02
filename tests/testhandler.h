@@ -11,23 +11,23 @@
 #include "../src/iwstring.h"
 
 namespace iw {
-#define ASSERT_TRUE(a, b) if (a == b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
-#define ASSERT_FALSE(a, b) if (a != b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+#define ASSERT_TRUE(a, b) if (a == b) { return ErrCode::Success; } else { return ErrCode::Fail; }
+#define ASSERT_FALSE(a, b) if (a != b) { return ErrCode::Success; } else { return ErrCode::Fail; }
 // Less Than
-#define ASSERT_LT(a, b) if (a < b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+#define ASSERT_LT(a, b) if (a < b) { return ErrCode::Success; } else { return ErrCode::Fail; }
 // Less Than Equal To
-#define ASSERT_LTE(a, b) if (a <= b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+#define ASSERT_LTE(a, b) if (a <= b) { return ErrCode::Success; } else { return ErrCode::Fail; }
 // Greater Than
-#define ASSERT_GT(a, b) if (a > b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+#define ASSERT_GT(a, b) if (a > b) { return ErrCode::Success; } else { return ErrCode::Fail; }
 // Greater Than Equal To
-#define ASSERT_GTE(a, b) if (a >= b) { return ErrCode::SUCCESS; } else { return ErrCode::FAIL; }
+#define ASSERT_GTE(a, b) if (a >= b) { return ErrCode::Success; } else { return ErrCode::Fail; }
 
 
 enum ErrCode {
-    OK,
-    UNKNOWN_ERROR,
-    FAIL,
-    SUCCESS
+    Ok,
+    UnknownError,
+    Fail,
+    Success
 };
 
 struct TestResults {

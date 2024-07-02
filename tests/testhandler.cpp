@@ -43,11 +43,11 @@ const String TestHandler::resultsString() const
     for (auto& [funcNamePtr, errCode] : m_testResults.results) {
         res.append(funcNamePtr.get()->cStr());
         switch (errCode) {
-            case ErrCode::SUCCESS:
-                res.append(" SUCCESS\n");
+            case ErrCode::Success:
+                res.append(" Success\n");
                 break;
-            case ErrCode::FAIL:
-                res.append(" FAIL\n");
+            case ErrCode::Fail:
+                res.append(" Fail\n");
                 break;
             default:
                 res.append(" UNKNOWN\n");
@@ -94,7 +94,7 @@ ErrCode TestHandler::runTests()
 
     addResults();
 
-    return ErrCode::OK;
+    return ErrCode::Ok;
 }
 
 void TestHandler::addResults()
@@ -105,13 +105,13 @@ void TestHandler::addResults()
 
     for (auto& [funcName, errCode] : m_testResults.results) {
         switch (errCode) {
-            case ErrCode::SUCCESS:
+            case ErrCode::Success:
                 successes++;
                 break;
-            case ErrCode::FAIL:
+            case ErrCode::Fail:
                 fails++;
                 break;
-            case ErrCode::UNKNOWN_ERROR:
+            case ErrCode::UnknownError:
                 unknowns++;
                 break;
             default:
