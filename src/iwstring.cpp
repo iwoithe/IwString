@@ -512,7 +512,9 @@ String& String::prepend(const String& other)
     // Append m_data on the end
     res.append(m_data);
 
-    m_data = res.m_data;
+    int resLength = res.length(true);
+    clearData(resLength, false);
+    strcpy_s(m_data, resLength, res.data());
 
     return *this;
 }
