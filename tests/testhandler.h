@@ -50,6 +50,7 @@ public:
 
     const String resultsString() const;
     void printResults() const;
+    void saveResultsToFile() const;
 
     ErrCode runTests();
 

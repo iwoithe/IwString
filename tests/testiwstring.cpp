@@ -155,6 +155,7 @@ int main()
     }
 
     testHandler->printResults();
+    testHandler->saveResultsToFile();
 
     delete testHandler;
 

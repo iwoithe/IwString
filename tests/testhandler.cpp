@@ -3,9 +3,8 @@
 #include <cassert>
 #include <ctime>
 #include <chrono>
-#include <iostream>
+#include <fstream>
 #include <memory>
-#include <string>
 
 using namespace iw;
 
@@ -62,6 +61,22 @@ const String TestHandler::resultsString() const
 void TestHandler::printResults() const
 {
     resultsString().writeToConsole();
+}
+
+void TestHandler::saveResultsToFile() const
+{
+    String fileName = "testresults.txt";
+    std::fstream file;
+    file.open(fileName.cStr(), std::ios::out);
+    if (file.is_open()) {
+        file << resultsString() << std::endl;
+    } else {
+        String errMessage = "[ERROR] (TestHandler::saveResultsToFile) \"";
+        errMessage.append(fileName).append("\" could not be opened");
+        errMessage.writeToConsole();
+    }
+
+    file.close();
 }
 
 ErrCode TestHandler::runTests()
