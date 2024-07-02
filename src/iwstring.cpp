@@ -431,13 +431,13 @@ std::vector<char> String::toCharVector() const
 
 String& String::toLower()
 {
-    strlwr(m_data);
+    _strlwr_s(m_data, length(true));
     return *this;
 }
 
 String& String::toUpper()
 {
-    strupr(m_data);
+    _strupr_s(m_data, length(true));
     return *this;
 }
 
