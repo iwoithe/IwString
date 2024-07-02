@@ -25,12 +25,28 @@ ErrCode testArrayIndexOperator()
 
 ErrCode testColor()
 {
-    String str1("Hello,");
+    String str1("\"Hello,");
     str1.setColor(Color::Cyan, ColorLayer::Foreground);
-    str1.writeToConsole(false);
-    String str2(" World!");
+    
+    String str2(" World!\"");
     str2.setColor(Color::Magenta, ColorLayer::Foreground);
-    str2.writeToConsole();
+
+    String str3;
+    str3.appendColor(Color::None, ColorLayer::Background);
+    str3.append(" ");
+    str3.appendColor(Color::Black, ColorLayer::Foreground);
+    str3.appendColor(Color::White, ColorLayer::Background);
+    str3.append("from");
+    str3.appendColor(Color::None, ColorLayer::Background);
+    str3.append(" ");
+    str3.appendColor(Color::Yellow, ColorLayer::Foreground);
+    str3.append("testColor");
+    str3.appendColor(Color::None, ColorLayer::Foreground);
+
+    str1.writeToConsole(false);
+    str2.writeToConsole(false);
+    str3.writeToConsole();
+
     return ErrCode::Success;
 }
 

@@ -9,6 +9,7 @@ A custom string type created only for the purpose of learning. Most sane people 
 - Comment the code to clear up how I've implemented certain algorithms
 - Use the Boyer–Moore algorithm for the `find()` method instead of brute force
     - If the length of `findStr` is one character, use a single for-loop
+- Add more ANSI escape code support
 
 ## License
 
