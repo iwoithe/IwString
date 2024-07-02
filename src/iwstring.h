@@ -8,6 +8,26 @@
 #include <ostream>
 
 namespace iw {
+enum Color {
+    None,
+    Default,
+    Black,
+    Red,
+    Green,
+    Yellow,
+    Blue,
+    Magenta,
+    Cyan,
+    White
+};
+
+enum ColorLayer {
+    Foreground,
+    Background
+};
+
+static const char* getCodeFromColor(Color colorCode, ColorLayer colorLayer);
+
 class String
 {
 public:
@@ -46,6 +66,9 @@ public:
 
     const char* cStr() const;
 
+    void setColor(Color color, ColorLayer colorLayer);
+    void setColor(Color color, ColorLayer colorLayer, const bool& clearAtEndOfLine);
+
     const char* data() const;
     void setData(char c);
     void setData(const char* d);
@@ -76,6 +99,7 @@ public:
 
     void readFromConsole();
     void writeToConsole() const;
+    void writeToConsole(const bool& flushEndOfLine) const;
 
 private:
     char* m_data;

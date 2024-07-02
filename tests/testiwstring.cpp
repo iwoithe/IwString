@@ -23,6 +23,17 @@ ErrCode testArrayIndexOperator()
     ASSERT_TRUE(str[2], 'l');
 }
 
+ErrCode testColor()
+{
+    String str1("Hello,");
+    str1.setColor(Color::Cyan, ColorLayer::Foreground);
+    str1.writeToConsole(false);
+    String str2(" World!");
+    str2.setColor(Color::Magenta, ColorLayer::Foreground);
+    str2.writeToConsole();
+    return ErrCode::Success;
+}
+
 ErrCode testEqOperatorMismatchStrSameLength()
 {
     String str1 = "String 1";
@@ -141,6 +152,7 @@ int main()
     testHandler->addTest("testAppend", &testAppend);
     testHandler->addTest("testAppendNumber", &testAppendNumber);
     testHandler->addTest("testArrayIndexOperator", &testArrayIndexOperator);
+    testHandler->addTest("testColor", &testColor);
     testHandler->addTest("testEqOperatorMismatchStrSameLength", &testEqOperatorMismatchStrSameLength);
     testHandler->addTest("testLength", &testLength);
     testHandler->addTest("testLessThanOperator", &testLessThanOperator);

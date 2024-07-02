@@ -8,6 +8,42 @@
 
 using namespace iw;
 
+static const char* iw::getCodeFromColor(Color colorCode, ColorLayer colorLayer)
+{
+    bool colorLayerBool;
+    switch (colorLayer) {
+        case ColorLayer::Foreground:
+            colorLayerBool = false;
+        case ColorLayer::Background:
+            colorLayerBool = true;
+    }
+
+    switch (colorCode) {
+        case (Color::None):
+            return "\033[0m";
+        case (Color::Default):
+            return colorLayerBool ? "\033[39m" : "\033[49m]";
+        case (Color::Black):
+            return colorLayerBool ? "\033[30m" : "\033[40m";
+        case (Color::Red):
+            return colorLayerBool ? "\033[31m" : "\033[41m";
+        case (Color::Green):
+            return colorLayerBool ? "\033[32m" : "\033[42m";
+        case (Color::Yellow):
+            return colorLayerBool ? "\033[33m" : "\033[43m";
+        case (Color::Blue):
+            return colorLayerBool ? "\033[34m" : "\033[44m";
+        case (Color::Magenta):
+            return colorLayerBool ? "\033[35m" : "\033[45m";
+        case (Color::Cyan):
+            return colorLayerBool ? "\033[36m" : "\033[46m";
+        case (Color::White):
+            return colorLayerBool ? "\033[37m" : "\033[47m";
+    }
+
+    return "\033[0m";
+};
+
 String::String()
 {
     initData(0);
@@ -212,6 +248,19 @@ const char* String::cStr() const
 {
     // A wrapper for String::data()
     return data();
+}
+
+void String::setColor(Color color, ColorLayer colorLayer)
+{
+    setColor(color, colorLayer, true);
+}
+
+void String::setColor(Color color, ColorLayer colorLayer, const bool& clearAtEndOfLine)
+{
+    prepend(getCodeFromColor(color, colorLayer));
+    if (clearAtEndOfLine) {
+        append(getCodeFromColor(Color::None, ColorLayer::Foreground));
+    }
 }
 
 const char* String::data() const
@@ -458,7 +507,15 @@ void String::readFromConsole()
 
 void String::writeToConsole() const
 {
-    std::cout << m_data << std::endl;
+    writeToConsole(true);
+}
+
+void String::writeToConsole(const bool& flushEndOfLine) const
+{
+    std::cout << m_data;
+    if (flushEndOfLine) {
+        std::cout << std::endl;
+    }
 }
 
 void String::appendNullTerminator()
