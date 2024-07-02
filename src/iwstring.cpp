@@ -4,6 +4,7 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
+#include <string.h>
 #include <string>
 
 using namespace iw;
@@ -88,8 +89,7 @@ String::String(const String& str)
 
 String::~String()
 {
-    // TODO: Fix the memory leak here
-    if (m_data == nullptr) {
+    if (m_data) {
         delete[] m_data;
     }
 }
@@ -614,11 +614,16 @@ void String::writeToConsole(const bool& flushEndOfLine) const
 
 void String::appendNullTerminator()
 {
-    // WARNING: This method does not check to see if m_data has enough space allocated before appending the null terminator
     int len = length();
 
     if (m_data[len - 1] != '\0') {
-        m_data[len] = '\0';
+        char* temp = new char[len + 1];
+        temp[len] = '\0';
+        strcpy_s(temp, len + 1, m_data);
+        delete[] m_data;
+        m_data = new char[len + 1];
+        strcpy_s(m_data, len + 1, temp);
+        delete[] temp;
     }
 }
 
