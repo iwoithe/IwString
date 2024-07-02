@@ -26,31 +26,65 @@ const String TestHandler::resultsString() const
 {
     String res;
 
+    res.appendColor(Color::Blue, ColorLayer::Foreground);
     res.append(std::ctime(&m_testResults.time));
+    res.appendColor(Color::None, ColorLayer::Foreground);
     res.append("\n");
     res.append("Successful ");
-    res.append(calcSuccessPercentage());
+
+    float perc = calcSuccessPercentage();
+    if  (perc == 100){
+        res.appendColor(Color::Green, ColorLayer::Foreground);
+    } else if (perc >= 50.0f) {
+        res.appendColor(Color::Yellow, ColorLayer::Foreground);
+    } else if (perc >= 0.0f) {
+        res.appendColor(Color::Red, ColorLayer::Foreground);
+    }
+
+    res.append(perc);
+
+    res.appendColor(Color::None, ColorLayer::Foreground);
     res.append("% out of ");
     res.append(m_funcNames.size());
     res.append(" tests\n");
+    res.appendColor(Color::Green, ColorLayer::Foreground);
     res.append(m_testResults.successful);
+    res.appendColor(Color::None, ColorLayer::Foreground);
     res.append(" successful, ");
+    res.appendColor(Color::Red, ColorLayer::Foreground);
     res.append(m_testResults.failed);
+    res.appendColor(Color::None, ColorLayer::Foreground);
     res.append(" fails, ");
+    res.appendColor(Color::Yellow, ColorLayer::Foreground);
     res.append(m_testResults.unknown);
+    res.appendColor(Color::None, ColorLayer::Foreground);
     res.append(" unknowns\n\n");
+
+    res.appendColor(Color::None, ColorLayer::Foreground);
 
     for (auto& [funcNamePtr, errCode] : m_testResults.results) {
         res.append(funcNamePtr.get()->cStr());
         switch (errCode) {
             case ErrCode::Success:
-                res.append(" Success\n");
+                res.append(" ");
+                res.appendColor(Color::Green, ColorLayer::Foreground);
+                res.append("Success");
+                res.appendColor(Color::None, ColorLayer::Foreground);
+                res.append("\n");
                 break;
             case ErrCode::Fail:
-                res.append(" Fail\n");
+                res.append(" ");
+                res.appendColor(Color::Red, ColorLayer::Foreground);
+                res.append("Fail");
+                res.appendColor(Color::None, ColorLayer::Foreground);
+                res.append("\n");
                 break;
             default:
-                res.append(" UNKNOWN\n");
+                res.append(" ");
+                res.appendColor(Color::Yellow, ColorLayer::Foreground);
+                res.append("Unknown");
+                res.appendColor(Color::None, ColorLayer::Foreground);
+                res.append("\n");
                 break;
         }
     }
@@ -65,6 +99,7 @@ void TestHandler::printResults() const
 
 void TestHandler::saveResultsToFile() const
 {
+    // TODO: Append, not override
     String fileName = "testresults.txt";
     std::fstream file;
     file.open(fileName.cStr(), std::ios::out);

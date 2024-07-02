@@ -10,35 +10,37 @@ using namespace iw;
 
 static const char* iw::getCodeFromColor(Color colorCode, ColorLayer colorLayer)
 {
-    bool colorLayerBool;
+    bool isForeground;
     switch (colorLayer) {
         case ColorLayer::Foreground:
-            colorLayerBool = false;
+            isForeground = true;
+            break;
         case ColorLayer::Background:
-            colorLayerBool = true;
+            isForeground = false;
+            break;
     }
 
     switch (colorCode) {
         case (Color::None):
             return "\033[0m";
         case (Color::Default):
-            return colorLayerBool ? "\033[39m" : "\033[49m]";
+            return isForeground ? "\033[39m" : "\033[49m";
         case (Color::Black):
-            return colorLayerBool ? "\033[30m" : "\033[40m";
+            return isForeground ? "\033[30m" : "\033[40m";
         case (Color::Red):
-            return colorLayerBool ? "\033[31m" : "\033[41m";
+            return isForeground ? "\033[31m" : "\033[41m";
         case (Color::Green):
-            return colorLayerBool ? "\033[32m" : "\033[42m";
+            return isForeground ? "\033[32m" : "\033[42m";
         case (Color::Yellow):
-            return colorLayerBool ? "\033[33m" : "\033[43m";
+            return isForeground ? "\033[33m" : "\033[43m";
         case (Color::Blue):
-            return colorLayerBool ? "\033[34m" : "\033[44m";
+            return isForeground ? "\033[34m" : "\033[44m";
         case (Color::Magenta):
-            return colorLayerBool ? "\033[35m" : "\033[45m";
+            return isForeground ? "\033[35m" : "\033[45m";
         case (Color::Cyan):
-            return colorLayerBool ? "\033[36m" : "\033[46m";
+            return isForeground ? "\033[36m" : "\033[46m";
         case (Color::White):
-            return colorLayerBool ? "\033[37m" : "\033[47m";
+            return isForeground ? "\033[37m" : "\033[47m";
     }
 
     return "\033[0m";
@@ -86,6 +88,7 @@ String::String(const String& str)
 
 String::~String()
 {
+    // TODO: Fix the memory leak here
     if (m_data == nullptr) {
         delete[] m_data;
     }
@@ -188,7 +191,6 @@ String& String::append(const float& other)
     return append(std::to_string(other).data());
 }
 
-
 String& String::append(const int& other)
 {
     return append(std::to_string(other).data());
@@ -212,12 +214,18 @@ String& String::append(const String& other)
         newStr[length() + i] = other.characterAt(i);
     }
 
-    delete m_data;
+    delete[] m_data;
     m_data = new char[len];
 
     strcpy_s(m_data, len, newStr);
     delete[] newStr;
 
+    return *this;
+}
+
+String& String::appendColor(Color color, ColorLayer colorLayer)
+{
+    append(getCodeFromColor(color, colorLayer));
     return *this;
 }
 

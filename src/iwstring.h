@@ -66,6 +66,7 @@ public:
 
     const char* cStr() const;
 
+    String& appendColor(Color color, ColorLayer colorLayer);
     void setColor(Color color, ColorLayer colorLayer);
     void setColor(Color color, ColorLayer colorLayer, const bool& clearAtEndOfLine);
 
