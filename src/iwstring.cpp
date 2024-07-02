@@ -97,6 +97,17 @@ bool String::operator<(const String& other)
     }
 }
 
+bool String::operator>(const String& other)
+{
+    int res = strcmp(m_data, other.m_data);
+
+    if (res > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 std::ostream& iw::operator<<(std::ostream& os, const String other)
 {
     os << other.cStr() << std::endl;
