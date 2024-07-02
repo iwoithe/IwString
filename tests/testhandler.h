@@ -51,6 +51,7 @@ public:
     const String resultsString() const;
     void printResults() const;
     void saveResultsToFile() const;
+    void saveResultsToFile(const String& fileName) const;
 
     ErrCode runTests();
 

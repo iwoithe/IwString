@@ -99,8 +99,11 @@ void TestHandler::printResults() const
 
 void TestHandler::saveResultsToFile() const
 {
-    // TODO: Append, not override
-    String fileName = "testresults.txt";
+    saveResultsToFile("testresults.log");
+}
+
+void TestHandler::saveResultsToFile(const String& fileName) const
+{
     std::fstream file;
     file.open(fileName.cStr(), std::ios::out);
     if (!file.is_open()) {
