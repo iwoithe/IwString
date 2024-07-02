@@ -8,8 +8,12 @@
 
 using namespace iw;
 
-TestHandler::TestHandler() {}
-TestHandler::~TestHandler() {}
+TestHandler::TestHandler()
+{
+    m_funcNames = {};
+    m_tests = {};
+    m_testResults = {};
+}
 
 void TestHandler::addTest(TestFunc testFunc)
 {
@@ -62,9 +66,11 @@ const String TestHandler::resultsString() const
 
     res.appendColor(Color::None, ColorLayer::Foreground);
 
-    for (auto& [funcNamePtr, errCode] : m_testResults.results) {
-        res.append(funcNamePtr.get()->cStr());
-        switch (errCode) {
+    for (auto& result : m_testResults.results) {
+        // First -> std::unique_pointer<String>
+        // Second -> ErrCode
+        res.append(result.first.get()->cStr());
+        switch (result.second) {
             case ErrCode::Success:
                 res.append(" ");
                 res.appendColor(Color::Green, ColorLayer::Foreground);
@@ -156,8 +162,10 @@ void TestHandler::addResults()
     int fails = 0;
     int unknowns = 0;
 
-    for (auto& [funcName, errCode] : m_testResults.results) {
-        switch (errCode) {
+    for (auto& result : m_testResults.results) {
+        // First -> std::unique_pointer<String>
+        // Second -> ErrCode
+        switch (result.second) {
             case ErrCode::Success:
                 successes++;
                 break;

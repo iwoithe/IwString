@@ -43,7 +43,7 @@ using TestFunc = std::function<ErrCode()>;
 class TestHandler {
 public:
     TestHandler();
-    ~TestHandler();
+    ~TestHandler() = default;
 
     void addTest(TestFunc testFunc);
     void addTest(String funcName, TestFunc testFunc);
@@ -59,9 +59,9 @@ public:
     void addResults();
     float calcSuccessPercentage() const;
 private:
-    std::vector<String> m_funcNames = {};
-    std::vector<TestFunc> m_tests = {};
-    TestResults m_testResults = TestResults();
+    std::vector<String> m_funcNames;
+    std::vector<TestFunc> m_tests;
+    TestResults m_testResults;
 };
 }
 
